@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank You!{% endblock title %}
+
+{% block content %}
+<div class="bg-gray-800 text-white p-5 md:py-8 md:px-20 lg:px-40 xl:px-60">
+    <h1 class="text-4xl font-extrabold py-5 text-center">Thank You!</h1>
+    <p class="text-xl text-center">Your payment for the project "{{ project.title }}" was successful.</p>
+    <p class="text-lg text-center mt-3">We appreciate your business and will get started on the project soon.</p>
+    <a href="{% url 'projects' %}" class="bg-blue-600 p-2 px-4 rounded hover:bg-gray-800 hover:outline-blue-600 transition delay-75 ease-in-out mt-5 block text-center">
+        Back to Projects
+    </a>
+</div>
+{% endblock %}

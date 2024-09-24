@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Available Projects{% endblock title %}
+
+{% block content %}
+<div class="bg-gray-800 text-white p-5 md:py-8 md:px-20 lg:px-40 xl:px-60">
+    <h1 class="text-4xl font-extrabold py-5 text-center">Available Projects</h1>
+    <div class="grid md:grid-cols-2 gap-8">
+        {% for project in projects %}
+        <div class="bg-gray-900 p-5 rounded-lg">
+            <h2 class="text-2xl font-bold">{{ project.title }}</h2>
+            <p class="text-xl mb-3">{{ project.description }}</p>
+            <span class="text-lg font-bold">Price: ${{ project.price }}</span>
+            <a href="{% url 'project_detail' project.id %}" class="bg-blue-600 p-2 px-4 rounded hover:bg-gray-800 hover:outline-blue-600 transition delay-75 ease-in-out mt-3 block">
+                View Project
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

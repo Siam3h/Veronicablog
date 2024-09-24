@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Project Detail{% endblock title %}
+
+{% block content %}
+<div class="bg-gray-800 text-white p-5 md:py-8 md:px-20 lg:px-40 xl:px-60">
+    <p class="text-4xl font-extrabold py-5 text-center md:text-start">
+        {{ project.title }}
+    </p>
+    <div class="bg-gray-900 p-5 mb-4 rounded-lg">
+        <p class="text-xl mb-3">{{ project.description }}</p>
+        <span class="text-lg font-bold">Price: ${{ project.price }}</span>
+    </div>
+    <a href="{% url 'process_payment' project.id %}" class="bg-blue-600 p-2 px-4 rounded hover:bg-gray-800 hover:outline-blue-600 transition delay-75 ease-in-out">
+        Proceed to Payment
+    </a>
+</div>
+{% endblock %}

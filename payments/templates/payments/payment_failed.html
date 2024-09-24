@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Failed{% endblock title %}
+
+{% block content %}
+<div class="bg-gray-800 text-white p-5 md:py-8 md:px-20 lg:px-40 xl:px-60">
+    <h1 class="text-4xl font-extrabold py-5 text-center">Payment Failed</h1>
+    <p class="text-xl text-center">Unfortunately, the payment was not successful. Please try again.</p>
+    <a href="{% url 'project_list' %}" class="bg-blue-600 p-2 px-4 rounded hover:bg-gray-800 hover:outline-blue-600 transition delay-75 ease-in-out mt-5 block text-center">
+        Back to Projects
+    </a>
+</div>
+{% endblock %}
