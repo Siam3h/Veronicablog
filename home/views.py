@@ -1,18 +1,18 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, get_object_or_404
+from django.views.decorators.cache import cache_page
 from django.http import Http404
 from home.models import Blog
 from django.contrib import messages
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.db.models import Q
 import random
 import re
 
-
+@cache_page(60 * 15)
 def index (request):
-    blogs = Blog.objects.all()
-    random_blogs = random.sample(list(blogs), 3)
-    context = {'random_blogs': random_blogs}
+    latest_blogs = Blog.objects.order_by('-time')[:5]
+    context = {'latest_blogs': latest_blogs}
     return render(request, 'index.html', context)
 
 def about (request):
@@ -54,29 +54,48 @@ def contact (request):
                 messages.error(request, 'Email or Phone is Invalid!')
     return render(request, 'contact.html', {})
 
-
+@cache_page(60 * 15)
 def blog(request):
-    blogs = Blog.objects.all().order_by('-time')
+    blogs = Blog.objects.order_by('-time')
     paginator = Paginator(blogs, 3)
     page = request.GET.get('page')
-    blogs = paginator.get_page(page)
-    context = {'blogs': blogs}
+    try:
+        blogs_page = paginator.page(page)
+    except PageNotAnInteger:
+        blogs_page = paginator.page(1)
+    except EmptyPage:
+        blogs_page = paginator.page(paginator.num_pages)
+    context = {'blogs': blogs_page}
     return render(request, 'blog.html', context)
 
+@cache_page(60 * 15)
 def category(request, category):
     category_posts = Blog.objects.filter(category=category).order_by('-time')
-    if not category_posts:
+    if not category_posts.exists():
         message = f"No posts found in category: '{category}'"
         return render(request, "category.html", {"message": message})
     paginator = Paginator(category_posts, 3)
     page = request.GET.get('page')
-    category_posts = paginator.get_page(page)
-    return render(request, "category.html", {"category": category, 'category_posts': category_posts})
 
+    try:
+        category_posts_page = paginator.page(page)
+    except PageNotAnInteger:
+        category_posts_page = paginator.page(1)
+    except EmptyPage:
+        category_posts_page = paginator.page(paginator.num_pages)
+    context = {
+        "category": category,
+        "category_posts": category_posts_page,
+    }
+    return render(request, "category.html", context)
+
+
+@cache_page(60 * 15)
 def categories(request):
     all_categories = Blog.objects.values('category').distinct().order_by('category')
     return render(request, "categories.html", {'all_categories': all_categories})
 
+@cache_page(60 * 15)
 def search(request):
     query = request.GET.get('q')
     query_list = query.split()
@@ -93,6 +112,7 @@ def search(request):
     return render(request, 'search.html', {'results': results, 'query': query, 'message': message})
 
 
+@cache_page(60 * 15)
 def blogpost (request, slug):
     try:
         blog = Blog.objects.get(slug=slug)
@@ -101,4 +121,3 @@ def blogpost (request, slug):
     except Blog.DoesNotExist:
         context = {'message': 'Blog post not found'}
         return render(request, '404.html', context, status=404)
-

@@ -11,11 +11,15 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Project, Transaction
 import requests
+from django.views.decorators.cache import cache_page
 
+
+@cache_page(60 * 15)
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     return render(request, 'payments/project_detail.html', {'project': project})
 
+@cache_page(60 * 15)
 def project_list(request):
     projects = Project.objects.all()
     for project in projects:

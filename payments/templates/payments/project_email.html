@@ -3,14 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project File</title>
+    <title>{{ project.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .contact {
+            color: #007bff;
+            text-decoration: none; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Thank you for your purchase :)!</h1>
-    <p>Hello {{ transaction.name }},</p>
-    <p>Thank you for purchasing the project <strong>{{ project.title }}</strong>.</p>
-    <p>The PDF file for the project is attached to this email.</p>
-    <p>If you have any issues accessing it, feel free to contact us.</p>
-    <p>Best regards,<br>Ann Veronica</p>
+    <div class="container">
+        <h1>Thank You for Your Purchase! 🎉</h1>
+        <p>Hello {{ transaction.name }},</p>
+        <p>Thank you for purchasing the project <strong>{{ project.title }}</strong>.</p>
+        <p>The PDF file for your project is attached to this email. If you have any issues accessing it, please feel free to <a href="mailto:siamaphilbert@outlook.com" class="contact">contact us</a>.</p>
+        <p>We appreciate your support and hope you enjoy your purchase!</p>
+        <div class="footer">
+            <p>Best regards,<br>Ann Veronica</p>
+            <p><small>Follow us on <a href="https://twitter.com/siam3h" class="contact">Twitter</a> | <a href="https://instagram.com/oti3n" class="contact">Facebook</a></small></p>
+        </div>
+    </div>
 </body>
 </html>

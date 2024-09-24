@@ -1,8 +1,8 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% load static %} 
+{% load static %}
 
-{% block title %}Home{% endblock title %} 
+{% block title %}Home{% endblock title %}
 
 {% block content %}
 <div
@@ -22,7 +22,7 @@
       <a href="/payments/projects"
         ><div class="relative group">
           <div
-            class="bg-gradient-to-r from-cyan-300 to-blue-600 px-6 py-2 text-white rounded-md -inset-0.5 absolute blur-sm opacity-75 group-hover:-inset-1 transition group-hover:duration-400 group-hover:opacity-90 duration-1000"
+            class=" px-6 py-2 text-white rounded-md -inset-0.5 absolute  opacity-75 group-hover:-inset-1 transition group-hover:duration-400 group-hover:opacity-90 duration-1000"
           ></div>
           <button
             class="relative bg-gray-900 px-7 py-2 text-white rounded-md group-hover:text-gray-50 transition duration-200"
@@ -34,7 +34,7 @@
       <a href="/about"
         ><div class="relative group">
           <div
-            class="bg-gradient-to-r from-cyan-300 to-blue-600 px-6 py-2 text-white rounded-md -inset-0.5 absolute blur-sm opacity-75 group-hover:-inset-1 transition group-hover:duration-400 group-hover:opacity-90 duration-1000"
+            class=" px-6 py-2 text-white rounded-md -inset-0.5 absolute opacity-75 group-hover:-inset-1 transition group-hover:duration-400 group-hover:opacity-90 duration-1000"
           ></div>
           <button
             class="relative bg-gray-900 px-7 py-2 text-white rounded-md group-hover:text-gray-50 transition duration-200"
@@ -53,8 +53,10 @@
     class="grid items-center px-2 text-start md:text-start md:pl-36 text-2xl md:text-3xl lg:text-4xl my-6 md:my-10"
     >Explore My Latest Writings</span
   >
+{% load cache %}
+{% cache 600 latest_blogs %}
   <div class="blogs my-5 grid justify-center md:flex md:space-x-6">
-    {% for blog in random_blogs|slice:3 %}
+    {% for blog in latest_blogs|slice:3 %}
     <div
       style="box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.05)"
       class="hover:scale-105 hover:transform bg-gray-800 p-5 rounded-lg max-w-sm h-auto shadow-2xl transition-all duration-300"
@@ -73,7 +75,7 @@
         <a href="/about" class="group transition-all duration-500 ease-out"
           ><span
             class="bg-left-bottom bg-gradient-to-r from-cyan-300 to-blue-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out group-hover:text-cyan-200"
-            >Ashish</span
+            >A. Veronica</span
           ></a
         >
         <i class="bi bi-dot"></i>
@@ -98,6 +100,7 @@
     <br />
     {% endfor %}
   </div>
+{% endcache %}
   <div class="flex justify-center">
     <a href="/blog" class=""
       ><button
