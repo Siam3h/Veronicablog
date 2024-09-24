@@ -32,9 +32,9 @@ PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','f65b-105-29-165-232.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','web-production-9cdc3.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://f65b-105-29-165-232.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-9cdc3.up.railway.app']
 
 
 # Application definition
