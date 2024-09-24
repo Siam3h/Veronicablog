@@ -108,7 +108,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',                      
+#         'NAME': 'railway',
 #         'USER': 'postgres',
 #         'PASSWORD': 'cqGiSNnstwaz2lyPFb4N',
 #         'HOST': 'containers-us-west-69.railway.app',
@@ -173,8 +173,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Use TLS
-EMAIL_HOST_USER = 'telvivkaburu@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'bnmt jnnc dhji kiqm'  # Use your app password
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
 
 
