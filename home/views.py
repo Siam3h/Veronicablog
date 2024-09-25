@@ -9,7 +9,7 @@ from django.db.models import Q
 import random
 import re
 
-@cache_page(60 * 15)
+@cache_page(60 * 20)
 def index (request):
     latest_blogs = Blog.objects.order_by('-time')[:5]
     context = {'latest_blogs': latest_blogs}
@@ -68,7 +68,7 @@ def blog(request):
     context = {'blogs': blogs_page}
     return render(request, 'blog.html', context)
 
-@cache_page(60 * 15)
+@cache_page(60 * 20)
 def category(request, category):
     category_posts = Blog.objects.filter(category=category).order_by('-time')
     if not category_posts.exists():
@@ -90,12 +90,12 @@ def category(request, category):
     return render(request, "category.html", context)
 
 
-@cache_page(60 * 15)
+@cache_page(60 * 20)
 def categories(request):
     all_categories = Blog.objects.values('category').distinct().order_by('category')
     return render(request, "categories.html", {'all_categories': all_categories})
 
-@cache_page(60 * 15)
+@cache_page(60 * 20)
 def search(request):
     query = request.GET.get('q')
     query_list = query.split()
@@ -112,7 +112,7 @@ def search(request):
     return render(request, 'search.html', {'results': results, 'query': query, 'message': message})
 
 
-@cache_page(60 * 15)
+@cache_page(60 * 20)
 def blogpost (request, slug):
     try:
         blog = Blog.objects.get(slug=slug)
